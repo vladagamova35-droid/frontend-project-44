@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import readlineSync from 'readline-sync'
 import { getRandomInt, greetUser } from '../src/cli.js'
+import { runGame } from '../src/index.js'
 
 const evenGame = (name) => {
   console.log('Answer "yes" if the number is even, otherwise answer "no".')
