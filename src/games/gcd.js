@@ -1,27 +1,24 @@
-import { getRandomInt } from '../cli.js'
+import runEngine from '../index.js'
 
-export const gcdGameRules = 'Find the greatest common divisor of given numbers.'
+const description = 'Find the greatest common divisor of given numbers.'
 
-export const findGCD = (a, b) => {
-  let first = Math.abs(a)
-  let second = Math.abs(b)
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
-  while (second !== 0) {
-    const temp = second
-    second = first % second
-    first = temp
+const getGcd = (a, b) => {
+  if (b === 0) {
+    return a
   }
-  
-  return first
+  return getGcd(b, a % b)
 }
 
-export const generateGCDRound = () => {
-  const num1 = getRandomInt(100)
-  const num2 = getRandomInt(100)
-  const correctAnswer = String(findGCD(num1, num2))
-  
-  return {
-    question: `${num1} ${num2}`,
-    correctAnswer
-  }
+const getRoundData = () => {
+  const num1 = getRandomInt(1, 100)
+  const num2 = getRandomInt(1, 100)
+
+  const question = `${num1} ${num2}`
+  const answer = getGcd(num1, num2)
+
+  return [question, String(answer)]
 }
+
+export default () => runEngine(description, getRoundData)

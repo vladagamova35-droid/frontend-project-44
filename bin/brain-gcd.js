@@ -1,6 +1,4 @@
 #!/usr/bin/env node
+import runGcdGame from '../src/games/gcd.js'
 
-import { runGame } from '../src/index.js'
-import { gcdGameRules, generateGCDRound } from '../src/games/gcd.js'
-
-runGame(gcdGameRules, generateGCDRound)
+runGcdGame()

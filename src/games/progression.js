@@ -1,20 +1,38 @@
-import { getRandomInt } from '../cli.js'
+import crypto from 'crypto'
+import runEngine from '../index.js'
 
-export const progressionGameRules = 'What number is missing in the progression?'
+const description = 'What number is missing in the progression?'
 
-export const generateProgressionRound = () => {
-  const length = 10
-  const start = getRandomInt(20)
-  const step = getRandomInt(5) + 1
+const getRandomInt = (min, max) => crypto.randomInt(min, max + 1)
+
+const generateProgression = (start, step, length) => {
   const progression = []
-  for (let index = 0; index < length; index++) {
-    const currentElement = start + index * step
-    progression.push(currentElement)
+  for (let i = 0; i < length; i += 1) {
+    progression.push(start + step * i)
   }
-  const hiddenIndex = getRandomInt(length) - 1
-  const correctAnswer = String(progression[hiddenIndex])
+  return progression
+}
+
+const getRoundData = () => {
+  const minStart = 1
+  const maxStart = 20
+  const minStep = 2
+  const maxStep = 10
+  const minLen = 5
+  const maxLen = 10
+
+  const start = getRandomInt(minStart, maxStart)
+  const step = getRandomInt(minStep, maxStep)
+  const length = getRandomInt(minLen, maxLen)
+
+  const progression = generateProgression(start, step, length)
+  const hiddenIndex = getRandomInt(0, length - 1)
+  const correctAnswer = progression[hiddenIndex]
+
   progression[hiddenIndex] = '..'
   const question = progression.join(' ')
-  
-  return { question, correctAnswer }
+
+  return [question, String(correctAnswer)]
 }
+
+export default () => runEngine(description, getRoundData)
