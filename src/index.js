@@ -4,7 +4,7 @@ import readlineSync from 'readline-sync'
 export const runGame = (gameRules, generateRound) => {
   console.log('Welcome to the Brain Games!')
   const userName = readlineSync.question('May I have your name? ')
-  console.log(`Hello, ${userName}!`)
+  console.log(` Hello, ${userName}!`)
   
   console.log(gameRules)
   
@@ -15,7 +15,7 @@ export const runGame = (gameRules, generateRound) => {
     const { question, correctAnswer } = generateRound()
     
     console.log(`Question: ${question}`)
-    const userAnswer = readlineSync.question('Your answer: ').toLowerCase().trim()
+    const userAnswer = readlineSync.question('Your answer: ').trim()
     
     if (userAnswer === correctAnswer) {
       console.log('Correct!')
@@ -29,4 +29,3 @@ export const runGame = (gameRules, generateRound) => {
   
   console.log(`Congratulations, ${userName}!`)
 };
-
